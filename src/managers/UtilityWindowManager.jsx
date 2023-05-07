@@ -1,3 +1,4 @@
+const maxCards = 100;
 let draggingCard={ element: null, index: null};
 let draggingOffset={ x: 0, y: 0}
 addEventListener("mouseup", (event) => {
@@ -29,13 +30,17 @@ function setDefaultInfo(objects) {
   }
   return([positions,sizes])
 }
+let cardLayers=[]
 
 export default function UtilityWindowManager({ children , utils}) {
   //const [cardInfo, setCardInfo] = useState(setDefaultInfo(children))
   let cardInfo=setDefaultInfo(children);
-  let cardLayers=Array(children.length)
-  cardLayers=children.map((c, i) => i)
-
+  
+  for(var i = 0; i < children.length; i++) {
+    if (cardLayers.indexOf(i)==-1) {
+      cardLayers.push(i);
+    }
+  }
   function getUtilityCard(cardInfo) {
     var i = cardInfo;
     while(!(i.classList.contains("utility-card"))) {
@@ -45,6 +50,7 @@ export default function UtilityWindowManager({ children , utils}) {
   }
 
   function moveCardToFront(index) {
+    
     for(var i = cardLayers.indexOf(index); i >= 0; i--) {
       cardLayers[i] = cardLayers[i-1];
     }
@@ -54,7 +60,7 @@ export default function UtilityWindowManager({ children , utils}) {
   function updateLayers() {
     var cards=document.getElementsByClassName("utility-card")
     for(var i = 0; i < cards.length; i++) {
-      cards[i].style.zIndex = (cards.length-cardLayers.indexOf(i));
+      cards[i].style.zIndex = (maxCards-cardLayers.indexOf(i))-1;
     }
   }
   function setDraggingCard(e, index) {
@@ -83,7 +89,7 @@ export default function UtilityWindowManager({ children , utils}) {
           top: cardInfo[0][index][1] + "px",
           width: cardInfo[1][index][0] + "px",
           height: cardInfo[1][index][1] + "px",
-          zIndex: cardLayers[index]
+          zIndex: (cardLayers[cardLayers.indexOf(index)])
           }}
           
           >
