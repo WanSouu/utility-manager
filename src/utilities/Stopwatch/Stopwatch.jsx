@@ -7,9 +7,9 @@ function stopwatchSecondsToTime(seconds) {
   return (_time[0]<10 ? "0" : "") + _time[0] + ":" + (_time[1]<10 ? "0" : "") + _time[1];
 }
 let stopwatchTimeout=null;
-export default function StopWatch() {
+
+export default function Stopwatch() {
   const [stopwatchInfo, setStopwatch] = useState({ time : 0 , state : false})
-  
   // Function that toggles the stopwatch state
   function stopwatchStart() {
     stopwatchTimeout = setTimeout(stopwatchAddTime, 1000);
@@ -35,11 +35,10 @@ export default function StopWatch() {
 
   return(
     <div id="stopwatch-wrapper">
-      <div className="stopwatch-title" contentEditable="true">Stopwatch Title</div>
       <div className="stopwatch-time">{stopwatchSecondsToTime(stopwatchInfo.time)}</div>
       <div id="stopwatch-button-wrapper">
+      <button className="stopwatch-button toggle" onClick={(stopwatchInfo.state ? stopwatchStop : stopwatchStart)}>{stopwatchInfo.state ? "stop" : "start"}</button>
         <button className="stopwatch-button reset" onClick={stopwatchReset}>reset</button>
-        <button className="stopwatch-button toggle" onClick={(stopwatchInfo.state ? stopwatchStop : stopwatchStart)}>{stopwatchInfo.state ? "stop" : "start"}</button>
       </div>
     </div>
   )

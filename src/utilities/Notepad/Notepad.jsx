@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './notepadStyle.css'
 
-export default function Notepad() {
+export default function Notepad({updateSize}) {
   return(
   <div id="notepad-wrapper">
     <div className="notepad-title" contentEditable="true" placeholder="Title"></div>

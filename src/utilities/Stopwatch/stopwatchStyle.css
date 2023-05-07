@@ -25,14 +25,8 @@
   border: 2px solid black;
   background: none;
   font-size: 2em;
-  width: 33%;
-}
-
-.stopwatch-title {
-  font-size: 2em;
-  text-align: center;
-  outline: none;
-  position: relative;
+  width:3em;
+  aspect-ratio: 8/3;
 }
 
 .stopwatch-time {
