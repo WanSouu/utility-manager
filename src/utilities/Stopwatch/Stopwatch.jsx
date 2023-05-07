@@ -1,5 +1,5 @@
-import { useState , useEffect } from 'react'
-import './stopwatch_style.css'
+import { useState } from 'react'
+import './stopwatchStyle.css'
 
 // Function that converts the amount of seconds into a 00:00 string format
 function stopwatchSecondsToTime(seconds) {
@@ -29,7 +29,6 @@ export default function StopWatch() {
 
   // Function that runs every 1 second and adds the time to the stopwatch time variable
   function stopwatchAddTime() {
-    console.log("yeah");
     setStopwatch((current_info) => {return {time : current_info.time + 1, state : current_info.state}});
     stopwatchTimeout = setTimeout(stopwatchAddTime, 1000);
   }

@@ -1,5 +1,42 @@
+:root {
+  --card-background-color: white;
+}
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+.utility-card {
+  border: 3px solid black;
+  overflow: hidden;
+  resize: both;
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 400px;
+  max-height: 400px;
+  display: inline-block;
+  position: absolute;
+  background: var(--card-background-color);
+}
+.top-bar {
+  height: 10%;
+  width: 100%;
+  border-bottom: black 2px solid;
+  position: relative;
+}
+.card-drag-bar, .card-close {
+  display: inline-block;
+  user-select: none;
+  height: 100%;
+  position: absolute;
+}
+.card-drag-bar {
+  left:0;
+  cursor: grab;
+  width: 100%
+}
+.card-close {
+  aspect-ratio: 1/1;
+  right:0;
+  cursor: pointer;
 }

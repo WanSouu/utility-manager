@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import UtilityWindowManager from './UtilityWindowManager.jsx'
 import StopWatch from './utilities/Stopwatch/Stopwatch.jsx'
+import Notepad from './utilities/Notepad/Notepad.jsx'
+
 
 function UtilityManager() {
   return(
-    <>
-    <StopWatch />
-    </>
+    <UtilityWindowManager>
+      <StopWatch />
+      <Notepad />
+    </UtilityWindowManager>
  )
 }
 
