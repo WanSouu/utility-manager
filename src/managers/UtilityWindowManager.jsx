@@ -6,13 +6,18 @@ addEventListener("mouseup", (event) => {
 });
 addEventListener("mousemove", (event) => {
   if (draggingCard.element!=null) {
-    draggingCard.element.style.left=(event.clientX - parseInt(draggingCard.element.style.width)/2 + draggingOffset.x)+"px";
-    draggingCard.element.style.top=(event.clientY - parseInt(draggingCard.element.style.height)/2 + draggingOffset.y)+"px";
+    var _x = (event.clientX - parseInt(draggingCard.element.style.width)/2 + draggingOffset.x)
+    var _y = (event.clientY - parseInt(draggingCard.element.style.height)/2 + draggingOffset.y)
+    draggingCard.element.style.left=_x+"px";
+    draggingCard.element.style.top=_y+"px";
+    cardInfo.position[draggingCard.index].x=_x
+    cardInfo.position[draggingCard.index].y=_y
+    
   }2
 })
 
 let cardLayers=[]
-let cardInfo = { position: new Array(maxCards), size: new Array(maxCards)}
+let cardInfo = { position: new Map(), size: new Map()}
 
 
 
@@ -32,7 +37,7 @@ function setDefaultInfo(objects) {
   var goback=0;
   var row=0;
   for(var i = 0; i < objects.length; i++) {
-    if (i<cardLayers.length-1) { console.log(i, "yea"); continue; };
+    if (i<cardLayers.length-1) { continue; };
     if (i>0 && position[i-1].x + (size[i].width * 2 + seperation) > window.innerWidth) {
       goback=i
       row++;
@@ -48,12 +53,11 @@ function setDefaultInfo(objects) {
 
 export default function UtilityWindowManager({ children , utils, utilIds , removeCardElement, newUtil}) {
   if (newUtil!=null) {
-    cardInfo.position[children.length-1]={
-      x : 100+Math.random()*100,
-      y : 100+Math.random()*100
-    }
-    cardInfo.size[children.length-1]={width: 300, height: 300}
-    
+    cardInfo.position.set(utilIds[children.length-1],{
+      x : 100+500*Math.random(),
+      y : 100+300*Math.random()
+    })
+    cardInfo.size.set(utilIds[children.length-1],{width: 300, height: 300})
   }
   for(var i = 0; i < children.length; i++) {
     if (cardLayers.indexOf(i)==-1) {
@@ -99,32 +103,23 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
 
     draggingCard.element.className=draggingCard.element.className + " dragging-card";
   }
-
   function removeCard(e, index) {
-    console.log("removing: ", index);
-    console.log(...cardLayers);
     var arrayPos=cardLayers.indexOf(index)
     for(var i = 0; i < cardLayers.length; i++) {
       if (cardLayers[i]>index) { cardLayers[i]-- };
     }
     cardLayers=[...cardLayers.slice(0, arrayPos),...cardLayers.slice(arrayPos + 1)]
-    console.log(...cardLayers);
-
     removeCardElement(index);
   }
-
-
-  console.log("current layers: ", ...cardLayers)
-  console.log(maxCards)
   return(
     <div id="utility-cards">
     {children.map((child, index) => {
       return(
         <div key={utilIds[index]} className={"utility-card " + index} style={{
-          left: cardInfo.position[index].x + "px",
-          top: cardInfo.position[index].y + "px",
-          width: cardInfo.size[index].width + "px",
-          height: cardInfo.size[index].height + "px",
+          left: cardInfo.position.get(utilIds[index]).x + "px",
+          top: cardInfo.position.get(utilIds[index]).y + "px",
+          width: cardInfo.size.get(utilIds[index]).width + "px",
+          height: cardInfo.size.get(utilIds[index]).height + "px",
           zIndex: (maxCards-cardLayers.indexOf(index))
           }}
           >

@@ -21,13 +21,15 @@ export default function UtilityManager() {
 
   function addCard(i) {
     newUtil=utilNextId;
-    setUtils([...currentUtils, utils[i]])
+    setUtils([...currentUtils, utils[i]]) 
     utilIds.push(utilNextId++)
   }
 
   function removeCard(i) {
+    newUtil=null
     setUtils([...currentUtils.slice(0, i),...currentUtils.slice(i + 1)])
     utilIds=[...utilIds.slice(0, i),...utilIds.slice(i + 1)]
+    
   }
 
   return(
