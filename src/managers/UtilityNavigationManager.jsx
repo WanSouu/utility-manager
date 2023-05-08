@@ -3,7 +3,7 @@ export default function UtilityNavigationManager({ displayUtils , addCard }) {
   <div id="utility-nav">
     {
     displayUtils.map((util, index) => {
-      return (<button className="utility-nav-button" onClick={() => {addCard(index)}}>{util.type.name}</button>)
+      return (<button key={index} className="utility-nav-button" onClick={() => {addCard(index)}}>{util.type.name}</button>)
     })
     }
   </div>
