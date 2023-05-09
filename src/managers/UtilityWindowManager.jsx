@@ -2,18 +2,24 @@ const maxCards = 100;
 let draggingCard={ element: null, index: null};
 let draggingOffset={ x: 0, y: 0}
 addEventListener("mouseup", (event) => {
-  draggingCard.element=null;
+  if (draggingCard.element!=null) {
+    var _x = ((event.clientX - parseInt(draggingCard.element.style.width)/2) / event.view.window.innerWidth + draggingOffset.x)
+    var _y = ((event.clientY - parseInt(draggingCard.element.style.height)/2) / event.view.window.innerHeight + draggingOffset.y)
+    cardInfo.position.get(draggingCard.index).x=_x*100
+    cardInfo.position.get(draggingCard.index).y=_y*100
+    draggingCard.element=null;
+  }
 });
 addEventListener("mousemove", (event) => {
   if (draggingCard.element!=null) {
-    var _x = (event.clientX - parseInt(draggingCard.element.style.width)/2 + draggingOffset.x)
-    var _y = (event.clientY - parseInt(draggingCard.element.style.height)/2 + draggingOffset.y)
-    draggingCard.element.style.left=_x+"px";
-    draggingCard.element.style.top=_y+"px";
-    cardInfo.position[draggingCard.index].x=_x
-    cardInfo.position[draggingCard.index].y=_y
     
-  }2
+    var _x = ((event.clientX - parseInt(draggingCard.element.style.width)/2) / event.view.window.innerWidth + draggingOffset.x)
+    var _y = ((event.clientY - parseInt(draggingCard.element.style.height)/2) / event.view.window.innerHeight + draggingOffset.y)
+    draggingCard.element.style.left=_x*100+"%";
+    draggingCard.element.style.top=_y*100+"%";
+    
+    
+  }
 })
 
 let cardLayers=[]
@@ -54,8 +60,8 @@ function setDefaultInfo(objects) {
 export default function UtilityWindowManager({ children , utils, utilIds , removeCardElement, newUtil}) {
   if (newUtil!=null) {
     cardInfo.position.set(utilIds[children.length-1],{
-      x : 100+500*Math.random(),
-      y : 100+300*Math.random()
+      x : 20+Math.random()*60,
+      y : 20+Math.random()*60
     })
     cardInfo.size.set(utilIds[children.length-1],{width: 300, height: 300})
   }
@@ -87,12 +93,13 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
       cards[i].style.zIndex = (maxCards-cardLayers.indexOf(i));
     }
   }
+
   function setDraggingCard(e, index) {
     draggingCard.element = getUtilityCard(e.target)
     draggingCard.index = index;
 
-    draggingOffset.x = (parseInt(draggingCard.element.style.left)+parseInt(draggingCard.element.style.width)/2) - e.clientX;
-    draggingOffset.y = (parseInt(draggingCard.element.style.top)+parseInt(draggingCard.element.style.height)/2) - e.clientY;
+    draggingOffset.x = ((parseInt(draggingCard.element.style.left) / 100)+((parseInt(draggingCard.element.style.width)/2) / e.view.window.innerWidth)) - (e.clientX / e.view.window.innerWidth);
+    draggingOffset.y = ((parseInt(draggingCard.element.style.top) / 100)+((parseInt(draggingCard.element.style.height)/2) / e.view.window.innerHeight)) - (e.clientY / e.view.window.innerHeight);
 
     if (document.getElementsByClassName("dragging-card").length>0) {
       document.getElementsByClassName("dragging-card")[0].classList.remove("dragging-card");
@@ -118,8 +125,8 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
     {children.map((child, index) => {
       return(
         <div key={utilIds[index]} onMouseDown={(e) => {focusCard(e,index)}} className={"utility-card " + index} style={{
-          left: cardInfo.position.get(utilIds[index]).x + "px",
-          top: cardInfo.position.get(utilIds[index]).y + "px",
+          left: cardInfo.position.get(utilIds[index]).x + "%",
+          top: cardInfo.position.get(utilIds[index]).y + "%",
           width: cardInfo.size.get(utilIds[index]).width + "px",
           height: cardInfo.size.get(utilIds[index]).height + "px",
           zIndex: (maxCards-cardLayers.indexOf(index))
