@@ -97,9 +97,6 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
     if (document.getElementsByClassName("dragging-card").length>0) {
       document.getElementsByClassName("dragging-card")[0].classList.remove("dragging-card");
     }
-    
-    moveCardToFront(index)
-    updateLayers();
 
     draggingCard.element.className=draggingCard.element.className + " dragging-card";
   }
@@ -111,11 +108,16 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
     cardLayers=[...cardLayers.slice(0, arrayPos),...cardLayers.slice(arrayPos + 1)]
     removeCardElement(index);
   }
+  function focusCard(e,index) {
+    if (e.target.classList.contains("card-close") && cardLayers[0]!=index) { return -1 }
+    moveCardToFront(index)
+    updateLayers();
+  }
   return(
     <div id="utility-cards">
     {children.map((child, index) => {
       return(
-        <div key={utilIds[index]} className={"utility-card " + index} style={{
+        <div key={utilIds[index]} onMouseDown={(e) => {focusCard(e,index)}} className={"utility-card " + index} style={{
           left: cardInfo.position.get(utilIds[index]).x + "px",
           top: cardInfo.position.get(utilIds[index]).y + "px",
           width: cardInfo.size.get(utilIds[index]).width + "px",
