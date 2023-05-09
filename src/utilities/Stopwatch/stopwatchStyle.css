@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-#stopwatch-button-wrapper {
+.stopwatch-button-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
