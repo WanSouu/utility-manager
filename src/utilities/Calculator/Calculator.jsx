@@ -3,7 +3,7 @@ import './calculatorStyle.css'
 
 const allButtons =
 [
-  "C","<<<","/",
+  "C", "CE","<<<","/",
   "1", "2", "3",  "*",
   "4", "5", "6",  "+",
   "7", "8", "9",  "-",
@@ -17,10 +17,11 @@ export default function Calculator() {
   
   function buttonClick(e,buttonIndex) {
     var cur = allButtons[buttonIndex]
-    if (buttonIndex>1 && buttonIndex < 17) { addInput(cur) }
-    else if (buttonIndex==1) { removeLastInput() }
-    else if (buttonIndex==0) { clearInput() }
-    else if (buttonIndex==17) { evaluateInput() }
+    if (buttonIndex>2 && buttonIndex < 17) { addInput(cur) }
+    else if (buttonIndex==1) { clearInput() }
+    else if (buttonIndex==2) { removeLastInput() }
+    else if (buttonIndex==0) { clearInput(); clearAns() }
+    else if (buttonIndex==18) { evaluateInput() }
     
     updateInput(e);
   }
@@ -41,7 +42,9 @@ export default function Calculator() {
   }
 
   function clearInput() {
-    cur.input = "";
+    cur.input = ""; 
+  }
+  function clearAns() {
     cur.ans = null;
   }
 
