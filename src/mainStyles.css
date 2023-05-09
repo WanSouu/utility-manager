@@ -23,6 +23,31 @@ body {
   height: calc(100% - 20px); /* 100% height card - 20px top bar height*/
   width: 100%;
 }
+#utility-nav {
+  margin: 0.5%;
+  border: 5px black solid;
+
+  /* 100% screen width*/
+  /* - margin for left & right side = 99% */
+  /* - border width for left & right side = 99% - 10px */
+  width:calc(99% - 10px);
+  height: 5%;
+
+  border-radius: 12px;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+}
+#utility-nav > button {
+  flex:auto;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
 .top-bar {
   height: 20px;
   width: 100%;
