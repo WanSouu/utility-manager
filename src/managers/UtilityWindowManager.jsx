@@ -124,7 +124,7 @@ export default function UtilityWindowManager({ children , utils, utilIds , remov
     <div id="utility-cards">
     {children.map((child, index) => {
       return(
-        <div key={utilIds[index]} onMouseDown={(e) => {focusCard(e,index)}} className={"utility-card " + index} style={{
+        <div key={utilIds[index]} onMouseDown={(e) => {focusCard(e,index)}} className={"utility-card " + child.type.name.toLowerCase()} style={{
           left: cardInfo.position.get(utilIds[index]).x + "%",
           top: cardInfo.position.get(utilIds[index]).y + "%",
           width: cardInfo.size.get(utilIds[index]).width + "px",
