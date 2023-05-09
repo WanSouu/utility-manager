@@ -15,11 +15,11 @@
   padding-left: 6px;
 }
 .notepad-content {
-  height:86%;
-  font-size: 1.5em;
+  height:calc(100% - 37px);
+  font-size: 24px;
 }
 .notepad-title {
-  font-size: 2em;
+  font-size: 32px;
 }
 
 /* Scrollbar styles */

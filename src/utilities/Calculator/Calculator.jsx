@@ -17,7 +17,7 @@ export default function Calculator() {
   
   function buttonClick(e,buttonIndex) {
     var cur = allButtons[buttonIndex]
-    if (buttonIndex>2 && buttonIndex < 17) { addInput(cur) }
+    if (buttonIndex>2 && buttonIndex < 18) { addInput(cur) }
     else if (buttonIndex==1) { clearInput() }
     else if (buttonIndex==2) { removeLastInput() }
     else if (buttonIndex==0) { clearInput(); clearAns() }
