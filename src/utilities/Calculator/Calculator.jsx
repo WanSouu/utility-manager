@@ -58,7 +58,6 @@ export default function Calculator() {
   function getWrapper(e) {
     while(e.id!="calculator-wrapper") {
       e=e.parentNode
-      console.log("new e:", e);
     }
     return (e)
   }

@@ -25,45 +25,13 @@ addEventListener("mousemove", (event) => {
 let cardLayers=[]
 let cardInfo = { position: new Map(), size: new Map()}
 
-
-
-function getPosition(index, axis) {
-  return {
-    x : null,
-    y : null
-  }
-}
-
-function setDefaultInfo(objects) {
-  if (objects.length==0) { return; }
-  var position=new Array(objects.length).fill(null).map((c, i) => { ; return getPosition(i); });
-  var size=new Array(objects.length).fill(null).map(() => { return { width : 300 , height : 300 }; }); // those are the dimensions of a default card
-  var seperation= 64 // separation between cards
-
-  var goback=0;
-  var row=0;
-  for(var i = 0; i < objects.length; i++) {
-    if (i<cardLayers.length-1) { continue; };
-    if (i>0 && position[i-1].x + (size[i].width * 2 + seperation) > window.innerWidth) {
-      goback=i
-      row++;
-    }
-    
-    position[i].x=seperation + (((size[i].width + seperation) * i) - ((size[i].width + seperation) * goback));
-    position[i].y=seperation + ((size[i].height + seperation) * row);
-  }
-  return({position : position, size : size})
-}
-
-
-
 export default function UtilityWindowManager({ children , utils, utilIds , removeCardElement, newUtil}) {
   if (newUtil!=null) {
     cardInfo.position.set(utilIds[children.length-1],{
-      x : 20+Math.random()*60,
-      y : 20+Math.random()*60
+      x : 10+Math.random()*10,
+      y : 10+Math.random()*10
     })
-    cardInfo.size.set(utilIds[children.length-1],{width: 300, height: 300})
+    cardInfo.size.set(utilIds[children.length-1],{width: window.innerWidth*0.16, height: window.innerHeight*0.32})
   }
   for(var i = 0; i < children.length; i++) {
     if (cardLayers.indexOf(i)==-1) {
